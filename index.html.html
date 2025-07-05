@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>4EyesOnCell - Fresh Start</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #000;
+      color: #fff;
+    }
+    #zoom-label {
+      font-size: 1.5rem;
+      margin: 1rem;
+      color: yellow;
+    }
+    #magnified-text {
+      width: 90%;
+      text-align: center;
+      font-size: 28px;
+      padding: 1rem;
+      transform-origin: center;
+      transition: transform 0.2s ease-in-out;
+    }
+    #controls {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div id="zoom-label">+1.75x</div>
+  <div id="magnified-text">This is a test of your +1.75 vision lens. Adjust as needed.</div>
+
+  <div id="controls">
+    <button onclick="adjustZoom(-0.25)">− Zoom</button>
+    <button onclick="setZoom(1.50)">1.50</button>
+    <button onclick="setZoom(1.75)">1.75</button>
+    <button onclick="setZoom(2.00)">2.00</button>
+    <button onclick="setZoom(2.25)">2.25</button>
+    <button onclick="setZoom(2.50)">2.50</button>
+    <button onclick="setZoom(2.75)">2.75</button>
+    <button onclick="setZoom(3.00)">3.00</button>
+    <button onclick="adjustZoom(0.25)">+ Zoom</button>
+    <button onclick="toggleMode()" id="modeToggle">Mode: Dark</button>
+  </div>
+
+  <script>
+    let zoomLevel = 1.75;
+    let isDarkMode = true;
+
+    const text = document.getElementById("magnified-text");
+    const label = document.getElementById("zoom-label");
+    const modeToggle = document.getElementById("modeToggle");
+
+    function updateZoom() {
+      text.style.transform = `scale(${zoomLevel})`;
+      label.textContent = `+${zoomLevel.toFixed(2)}x`;
+    }
+
+    function adjustZoom(amount) {
+      zoomLevel = Math.max(0.5, Math.min(4.25, zoomLevel + amount));
+      updateZoom();
+    }
+
+    function setZoom(level) {
+      zoomLevel = level;
+      updateZoom();
+    }
+
+    function toggleMode() {
+      isDarkMode = !isDarkMode;
+      document.body.style.backgroundColor = isDarkMode ? "#000" : "#fff";
+      document.body.style.color = isDarkMode ? "#fff" : "#000";
+      modeToggle.textContent = "Mode: " + (isDarkMode ? "Dark" : "Light");
+    }
+
+    updateZoom();
+  </script>
+</body>
+</html>
